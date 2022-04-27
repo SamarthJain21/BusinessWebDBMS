@@ -12,7 +12,6 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE
 })
-
 const router = express.Router();
 
 router.post('/register',async (req,res)=>{
@@ -88,7 +87,7 @@ router.get('/userEmail',(req,res)=>{
     console.log("Fetch Email request"+ req.body.gstNo);
 
     db.query(
-        "Select email from `companyEmail` where `companyGST`=?",
+        "Select email from `companyEmail` where `gstNo`=?",
         [req.body.gstNo],
         (err,result)=>{
             if(err){
@@ -111,7 +110,7 @@ router.post('/addEmail', (req,res)=>{
     console.log("Add Email request"+ req.body.gstNo);
 
     db.query(
-        "Insert into `companyEmail`(`companyGST`,`email`) values(?,?)",
+        "Insert into `companyEmail`(`gstNo`,`email`) values(?,?)",
         [req.body.gstNo,req.body.email],
         (err,result)=>{
             if(err){
@@ -203,5 +202,79 @@ router.post('/removePhone', (req,res)=>{
     
 });
 
-router.post('/addTrader')
+router.get('/getItems',(req,res)=>{
+    console.log("Fetch Item request"+ req.body.gstNo);
+
+    db.query(
+        "Select * from `items` where `companyGST`=?",
+        [req.body.gstNo],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }
+            else{
+                if(result.length!=0){
+
+                    res.send(result)
+                }else{
+                    res.send("No Items Found")
+                }
+            }
+        }
+    )
+
+})
+
+router.post('/addItem',(req,res)=>{
+    console.log("Request to add item for user",req.body.gstNo);
+    
+    db.query(
+        "Insert into `items` (`companyGST`,`itemName`,`itemQty`,`pricePerQty`,`description`) values(?,?,?,?,?)",
+        [req.body.gstNo,req.body.itemName,req.body.itemQty,req.body.pricePerQty,req.body.description],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send("Item Created");
+            }
+        }
+    );
+
+});
+
+router.post('/deleteItem',(req,res)=>{
+    console.log("Request to delete item for user ",req.body.gstNo,req.body.itemID);
+    
+    db.query(
+        "delete from `items` where id=?",
+        [req.body.itemID],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send("Item if existed was deleted");
+            }
+        }
+    );
+
+});
+
+router.post('/updateItem',(req,res)=>{
+    console.log("Request to delete item for user ",req.body.gstNo,req.body.itemID);
+    
+    db.query(
+        "update `items` set `itemName`=?,`itemQty`=?,`pricePerQty`=?,`description`=? where id=?",
+        [req.body.itemName,req.body.itemQty,req.body.pricePerQty,req.body.description,req.body.itemID],
+
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send("Item if existed was updated");
+            }
+        }
+    );
+
+});
+
 export default router;
