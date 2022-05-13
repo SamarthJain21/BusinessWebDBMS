@@ -76,9 +76,22 @@ function Navbar() {
         </Link>
       </div>
       <div className="rela-block drop-down-container">
-        <div className="drop-down-item">
-          <ul><li><a href="#">Orders</a></li></ul>
-        </div>
+        <Link to="/order/getOrders">
+          <div className="drop-down-item">
+            <ul>
+              <li> Orders</li>
+            </ul>
+          </div>
+        </Link>
+      </div>
+      <div className="rela-block drop-down-container">
+        <Link to="/order/addOrder">
+          <div className="drop-down-item">
+            <ul>
+              <li> Add Order</li>
+            </ul>
+          </div>
+        </Link>
       </div>
       <div className="rela-block drop-down-container">
         <div className="drop-down-item" onClick={()=>{

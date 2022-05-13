@@ -7,6 +7,8 @@ import AddTrader from './components/Traders/AddTrader';
 import Traders from './components/Traders/Traders';
 import AddTraderItem from './components/TraderItems/AddTraderItem';
 import TraderItems from './components/TraderItems/TraderItems';
+import Orders from './components/Orders/Orders';
+import AddOrder from './components/Orders/AddOrder';
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route exact path="/trader/addTrader" element={<AddTrader />} />
         <Route exact path="/trader/getTraderItems/:id" element={<TraderItems />} />
         <Route exact path="/trader/addTraderItem/:id" element={<AddTraderItem />} />
+        <Route exact path="/order/getOrders" element={<Orders />} />
+        <Route exact path="/order/addOrder" element={<AddOrder />} />
       </Routes>
     </BrowserRouter>
   );
