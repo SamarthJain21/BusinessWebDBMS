@@ -4,7 +4,7 @@ import Loading from '../Loading/Loading';
 import { Link,useParams } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
-import './TraderItems.css'
+// import './TraderItems.css'
 function TraderItems() {
 
     const companyGST = localStorage.getItem("userGST")

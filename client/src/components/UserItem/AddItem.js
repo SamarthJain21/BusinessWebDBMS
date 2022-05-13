@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
-
-// import './AddItem.css'
 import Login from '../Login/Login'
 import Navbar from '../Home/Navbar'
 

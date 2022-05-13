@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import './AddTraderItem.css'
+// import './AddTraderItem.css'
 import Loading from '../Loading/Loading';
 import { Link, useParams } from 'react-router-dom';
 import Login from '../Login/Login';

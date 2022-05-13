@@ -249,6 +249,20 @@ h2 a,input {
 	  background-color: #1F2739;
 }
 
+
+.button1 {
+  background-color: var(--searchInputButtonBackgroundColor);
+  color: var(--searchInputButtonColor);
+  font-weight: var(--searchInputButtonFontWeight);
+  padding: var(--searchInputButtonPaddingVertical) var(--searchInputButtonPaddingHorizontal);
+}
+
+.button1:focus,
+.button1:hover {
+  background-color: var(--searchInputButtonHoverBackgroundColor);
+}
+
+
 .container td:first-child { color: #FB667A; }
 
 .container tr:hover {
