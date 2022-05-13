@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import './Items.css'
 import Loading from '../Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
-function Items() {
+import './TraderItems.css'
+function TraderItems() {
 
     const companyGST = localStorage.getItem("userGST")
-    const [loading, set_laoding] = useState(true)
+    const [loading, set_laoding] = useState(false)
     const [data, set_data] = useState([])
     const [filtered_data,set_filtered_data]=useState([])
     const [search_input,set_search_input]=useState("")
     const [init,set_init]=useState(false);
+    const {id}= useParams();
 
     useEffect(async () => {
-
+        console.log("inside use effect ")
         set_laoding(true)
         if(!init){
             const PORT = 4000
             const url = `http://localhost:${PORT}`
-            await axios.post(`${url}/user/getItems`, {
-                gstNo: companyGST,
+            await axios.post(`${url}/trader/getItems`, {
+                companyGST: companyGST,
+                traderID:id
             }).then((response) => {
                 console.log(response)
                 if(response.data!="No Items Found"){
@@ -56,7 +58,8 @@ function Items() {
     //         data= d.itemName.match(search_input);
     //     })
     // }
-    const handleDeleteItem = async (e,id) => {
+    const handleDeleteItem = async (e,itemID) => {
+
         e.preventDefault()
 
         // alert(id)
@@ -66,14 +69,15 @@ function Items() {
         const url = `http://localhost:${PORT}`
 
 
-        console.log(`${url}/user/deleteItem`)
-          await axios.post(`${url}/user/deleteItem`,{
-            gstNo:companyGST,
-            itemID:id
+        console.log(`${url}/trader/deleteItem`)
+          await axios.post(`${url}/trader/deleteItem`,{
+            companyGST:companyGST,
+            itemID:itemID,
+            traderID:id
           }).then((response)=>{
-            // console.log(response);
+            console.log(response);
               if(response.data==="Item deleted"){
-                  alert("deleted")
+                //   alert("deleted")
                 window.location.reload()
               }else{
                 alert(response.data.sqlMessage)
@@ -108,6 +112,9 @@ function Items() {
                         {/* <input type="submit" defaultValue="Search" className="button" /> */}
                     </div>
                 </form>
+                <br/>
+                <Link to={`/trader/addTraderItem/${id}`}> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Add Another Item"/></Link>
+
             </div>
             <br/>
             <br/>
@@ -128,6 +135,7 @@ function Items() {
                 </thead>
 
                 <tbody>
+                    {console.log(filtered_data)}
                     {filtered_data.map((item, i) => {
                         return (
                             <tr key={i}>
@@ -139,7 +147,7 @@ function Items() {
                                 <td>{item.description}</td>
                                 <td><div className="table__button-group">
                                     {/* <input type="submit" className="button" value="Edit" onClick={e=>handleDeleteItem(e,item.id)}/> */}
-                                    <input type="button" className="button"value="Delete" onClick={e=>handleDeleteItem(e,item.id)}/>
+                                    <input type="button" className="button"value="Remove" onClick={e=>handleDeleteItem(e,item.id)}/>
                                     {/* <a href="#">Edit</a> */}
                                     {/* <a href="#" onClick={handleDeleteItem(item.id)}>Delete</a> */}
                                 </div>
@@ -160,4 +168,4 @@ function Items() {
     )
 }
 
-export default Items
+export default TraderItems

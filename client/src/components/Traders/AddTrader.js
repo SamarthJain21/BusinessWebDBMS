@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 import './AddTrader.css'
 import Login from '../Login/Login'
+import Navbar from '../Home/Navbar'
 
 
 function AddTrader() {
@@ -57,6 +58,7 @@ function AddTrader() {
 
   return (
     <div>
+      <Navbar/>
       <form className="box">
         <h1>Add Trader</h1>
         <input type="text" value={name} placeholder="Trader Name" onChange={(text) => {
@@ -89,7 +91,7 @@ function AddTrader() {
 
         <input type="submit" value="Add" onClick={handleSubmit} />
         {/* <input className='back' value="Goto Home" onClick={handleSubmit}/> */}
-        <Link to="/trader/getTraders" className='back'>Go Back</Link>
+        <Link to="/trader/getTraders" className='back'>Goto Traders</Link>
       </form>
     </div>
 

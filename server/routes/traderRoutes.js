@@ -69,8 +69,7 @@ router.post('/getTraders',(req,res)=>{
 });
 
 router.post('/addItem',(req,res)=>{
-    console.log("Request to add item for a trader ",req.body.companyGST);
-    
+    console.log("Request to add item for a trader ",req.body.companyGST,req.body.traderID,req.body.itemID);
     db.query(
         "Insert into `traderItems`(`traderID`,`itemID`) values(?,?)",
         [req.body.traderID,req.body.itemID],
@@ -78,24 +77,59 @@ router.post('/addItem',(req,res)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Trader Item Added");
+                res.send("Added");
             }
         }
     );
-
 })
 
-router.post('/deleteItem',(req,res)=>{
-    console.log("Request to delete item for a trader ",req.body.companyGST);
-    
+router.post('/getItems',(req,res)=>{
+    console.log("Get Trader Items request", req.body.companyGST, req.body.traderID);
+
     db.query(
-        "delete from `traderItems` where id=?",
-        [req.body.itemID],
+        "select * from `items` where `companyGST`=? and enabled=1 and `id` = any (select `itemID` from `traderItems` where `traderID`=?) order by itemName",
+        [req.body.companyGST,req.body.traderID],
         (err,result)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Item if existed was deleted");
+                res.send(result);
+            }
+        }
+    );
+
+    
+});
+
+router.post('/getOtherItems',(req,res)=>{
+    console.log("Get Other than Trader Items request", req.body.companyGST, req.body.traderID);
+
+    db.query(
+        "select * from `items` where `companyGST`=? and enabled=1 and `id` <> all (select `itemID` from `traderItems` where `traderID`=?) order by itemName",
+        [req.body.companyGST,req.body.traderID],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send(result);
+            }
+        }
+    );
+
+    
+});
+
+router.post('/deleteItem',(req,res)=>{
+    console.log("Request to delete item for a trader ",req.body.companyGST,req.body.traderID,req.body.itemID);
+    
+    db.query(
+        "delete from `traderItems` where itemID=? and traderID=?",
+        [req.body.itemID,req.body.traderID],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.send("Item deleted");
             }
         }
     );

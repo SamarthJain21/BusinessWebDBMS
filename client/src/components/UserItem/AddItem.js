@@ -2,8 +2,9 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
-import './AddItem.css'
+// import './AddItem.css'
 import Login from '../Login/Login'
+import Navbar from '../Home/Navbar'
 
 
 function UserItem() {
@@ -47,6 +48,10 @@ function UserItem() {
 
   return (
   <div>
+    <Navbar/>
+    <br/>
+    <br/>
+
     <form className="box">
       <h1>Add Item</h1>
       <input type="text" value={item_name} placeholder="Item Name"  onChange={(text)=>{
@@ -67,7 +72,7 @@ function UserItem() {
       
     <input type="submit" value="Add" onClick={handleSubmit}/>
     {/* <input className='back' value="Goto Home" onClick={handleSubmit}/> */}
-    <Link to="/user/items" className='back'>Go Back</Link>
+    <Link to="/user/items" className='back'>Goto Items</Link>
     </form>
 </div>
 

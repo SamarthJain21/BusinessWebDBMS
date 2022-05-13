@@ -4,6 +4,7 @@ import './Traders.css'
 import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
 import Login from '../Login/Login';
+import Navbar from '../Home/Navbar';
 function Traders() {
 
     const companyGST = localStorage.getItem("userGST")
@@ -75,8 +76,13 @@ function Traders() {
 
     }
     const renderContent = (
-        <div>
-            <link rel="stylesheet" type="text/css" href="oders.css" />
+        <div className='tradersPage'>
+            <div>
+            <Navbar/>
+            <br/>
+            <br/>
+            <br/>
+            </div>
             <h1>
                 <span className="yellow">Traders</span></h1>
             <div className="grid">
@@ -94,23 +100,8 @@ function Traders() {
                     </div>
                 </form>
             </div>
-            <nav role="navigation">
+            <br/>
 
-
-
-                <div id="menuToggle">
-                    <input type="checkbox" />
-                    <span />
-                    <span />
-                    <span />
-            
-                    <ul id="menu">
-                        <a><li><Link to="/"> Home </Link></li></a>
-                        <a><li><Link to="/trader/addTrader"> Add Trader</Link></li></a>
-
-                    </ul>
-                </div>
-            </nav>
             <div className="frame" />
             <table className="container">
                 <thead>
@@ -122,6 +113,7 @@ function Traders() {
                         <th><h1>Gst No</h1></th>
                         <th><h1>Phone No.</h1></th>
                         <th><h1>Address</h1></th>
+                        <th><h1>Items</h1></th>
                         {/* <th><h1>Buy / Sell</h1></th> */}
                         <th><h1>Delete </h1></th>
                     </tr>
@@ -138,9 +130,13 @@ function Traders() {
                                 <td>{trader.email}</td>
                                 <td>{trader.gstNo}</td>
                                 <td>{trader.phoneNo} </td>
-                                <td>{trader.addressStreet} {trader.addressCity}</td>
+                                <td>{trader.addressStreet},{trader.addressCity}</td>
                                 <td><div className="table__button-group">
-                                    <input type="button" className="button"value="Delete" onClick={e=>handleDeleteTrader(e,trader.id)}/>
+                                   <Link to={`/trader/getTraderItems/${trader.id}`} > <input type="button" className="button" value="Items"/></Link>
+                                </div>
+                                </td>
+                                <td><div className="table__button-group">
+                                    <input type="button" className="button" value="Delete" onClick={e=>handleDeleteTrader(e,trader.id)}/>
                                 </div>
                                 </td>
                             </tr>)

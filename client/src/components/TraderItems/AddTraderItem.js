@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import './Items.css'
+import './AddTraderItem.css'
 import Loading from '../Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
-function Items() {
 
+function AddTraderItem() {
     const companyGST = localStorage.getItem("userGST")
     const [loading, set_laoding] = useState(true)
     const [data, set_data] = useState([])
     const [filtered_data,set_filtered_data]=useState([])
     const [search_input,set_search_input]=useState("")
     const [init,set_init]=useState(false);
+    const {id}= useParams()
 
     useEffect(async () => {
-
         set_laoding(true)
         if(!init){
             const PORT = 4000
             const url = `http://localhost:${PORT}`
-            await axios.post(`${url}/user/getItems`, {
-                gstNo: companyGST,
+            await axios.post(`${url}/trader/getOtherItems`, {
+              companyGST: companyGST,
+              traderID:id
             }).then((response) => {
                 console.log(response)
                 if(response.data!="No Items Found"){
@@ -51,29 +52,22 @@ function Items() {
 
     if (!localStorage.getItem("userGST")) return <Login />;
 
-    // if(search_input.length>0){
-    //     data.filter((d)=>{
-    //         data= d.itemName.match(search_input);
-    //     })
-    // }
-    const handleDeleteItem = async (e,id) => {
+    const handleAddItem = async (e,itemID) => {
         e.preventDefault()
-
-        // alert(id)
-        // [req.body.gstNo,req.body.itemName,req.body.itemQty,req.body.pricePerQty,req.body.description],
 
         const PORT = 4000
         const url = `http://localhost:${PORT}`
 
 
-        console.log(`${url}/user/deleteItem`)
-          await axios.post(`${url}/user/deleteItem`,{
-            gstNo:companyGST,
-            itemID:id
+        console.log(`${url}/trader/addItem`)
+          await axios.post(`${url}/trader/addItem`,{
+            companyGST:companyGST,
+            itemID:itemID,
+            traderID:id
           }).then((response)=>{
             // console.log(response);
-              if(response.data==="Item deleted"){
-                  alert("deleted")
+              if(response.data==="Added"){
+                  // alert("deleted")
                 window.location.reload()
               }else{
                 alert(response.data.sqlMessage)
@@ -108,6 +102,9 @@ function Items() {
                         {/* <input type="submit" defaultValue="Search" className="button" /> */}
                     </div>
                 </form>
+                <br/>
+                <Link to={`/trader/getTraderItems/${id}`}> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Go Back"/></Link>
+
             </div>
             <br/>
             <br/>
@@ -123,7 +120,7 @@ function Items() {
                         <th><h1>Price</h1></th>
                         <th><h1>Description</h1></th>
                         {/* <th><h1>Buy / Sell</h1></th> */}
-                        <th><h1>Delete </h1></th>
+                        <th><h1>Add </h1></th>
                     </tr>
                 </thead>
 
@@ -138,10 +135,7 @@ function Items() {
                                 <td>&#8377;{item.pricePerQty} </td>
                                 <td>{item.description}</td>
                                 <td><div className="table__button-group">
-                                    {/* <input type="submit" className="button" value="Edit" onClick={e=>handleDeleteItem(e,item.id)}/> */}
-                                    <input type="button" className="button"value="Delete" onClick={e=>handleDeleteItem(e,item.id)}/>
-                                    {/* <a href="#">Edit</a> */}
-                                    {/* <a href="#" onClick={handleDeleteItem(item.id)}>Delete</a> */}
+                                    <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.id)}/>
                                 </div>
                                 </td>
                             </tr>)
@@ -160,4 +154,4 @@ function Items() {
     )
 }
 
-export default Items
+export default AddTraderItem

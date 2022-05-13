@@ -179,7 +179,7 @@ ul li {
  .rela-block {
     display: block;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
 }
  .cover-before::before {
     content: "";
