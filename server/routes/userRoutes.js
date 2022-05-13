@@ -202,11 +202,11 @@ router.post('/removePhone', (req,res)=>{
     
 });
 
-router.get('/getItems',(req,res)=>{
+router.post('/getItems',(req,res)=>{
     console.log("Fetch Item request"+ req.body.gstNo);
 
     db.query(
-        "Select * from `items` where `companyGST`=?",
+        "Select * from `items` where `companyGST`=? and enabled=1",
         [req.body.gstNo],
         (err,result)=>{
             if(err){
@@ -235,7 +235,7 @@ router.post('/addItem',(req,res)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Item Created");
+                res.send("Created");
             }
         }
     );
@@ -243,16 +243,17 @@ router.post('/addItem',(req,res)=>{
 });
 
 router.post('/deleteItem',(req,res)=>{
-    console.log("Request to delete item for user ",req.body.gstNo,req.body.itemID);
+    console.log("Request to delete item for user",req.body.gstNo,req.body.itemID);
+    // req.body.itemID=parseInt(req.body.itemID)
     
     db.query(
-        "delete from `items` where id=?",
+        "update `items` set `enabled`=0 where id=?",
         [req.body.itemID],
         (err,result)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Item if existed was deleted");
+                res.send("Item deleted");
             }
         }
     );
@@ -260,7 +261,7 @@ router.post('/deleteItem',(req,res)=>{
 });
 
 router.post('/updateItem',(req,res)=>{
-    console.log("Request to delete item for user ",req.body.gstNo,req.body.itemID);
+    console.log("Request to update item for user ",req.body.gstNo,req.body.itemID);
     
     db.query(
         "update `items` set `itemName`=?,`itemQty`=?,`pricePerQty`=?,`description`=? where id=?",
