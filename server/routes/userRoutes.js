@@ -203,7 +203,7 @@ router.post('/removePhone', (req,res)=>{
 });
 
 router.post('/getItems',(req,res)=>{
-    console.log("Fetch Item request"+ req.body.gstNo);
+    console.log("Fetch Item request "+ req.body.gstNo);
 
     db.query(
         "Select * from `items` where `companyGST`=? and enabled=1",

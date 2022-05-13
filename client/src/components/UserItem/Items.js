@@ -11,29 +11,49 @@ function Items() {
     const companyGST = localStorage.getItem("userGST")
     const [loading, set_laoding] = useState(true)
     const [data, set_data] = useState([])
-    // const [itemID,set_itemID]=useState(-1)
-    // const [item_name, set_item_name] = useState("");
-    // const [item_qty, set_item_qty] = useState("");
-    // const [item_ppq, set_item_ppq] = useState("");
-    // const [item_description, set_item_description] = useState("");
+    const [filtered_data,set_filtered_data]=useState([])
+    const [search_input,set_search_input]=useState("")
+    const [init,set_init]=useState(false);
 
     useEffect(async () => {
         set_laoding(true)
-        const PORT = 4000
-        const url = `http://localhost:${PORT}`
+        if(!init){
+
+            const PORT = 4000
+            const url = `http://localhost:${PORT}`
+    
+    
+            await axios.post(`${url}/user/getItems`, {
+                gstNo: companyGST,
+            }).then((response) => {
+                set_data(response.data)
+                console.log(data)
+                set_init(true)
+                set_laoding(false)
+            }).catch(() => {
+                console.log('nnnn')
+
+                set_laoding(false)
+                alert("something went wrong")
+            })
+        }
+
+    
+        console.log(data)
+        console.log(search_input)
+        set_filtered_data(data?.filter((d)=>d.itemName.toLowerCase().includes(search_input.toLowerCase())))
+        console.log(filtered_data)
+        // set_data(filteredData)
+        set_laoding(false)
 
 
-        await axios.post(`${url}/user/getItems`, {
-            gstNo: companyGST,
-        }).then((response) => {
-            set_laoding(false)
-            set_data(response.data)
-        }).catch(() => {
-            set_laoding(false)
-            alert("something went wrong")
-        })
-    }, [])
+    }, [search_input])
 
+    // if(search_input.length>0){
+    //     data.filter((d)=>{
+    //         data= d.itemName.match(search_input);
+    //     })
+    // }
     const handleDeleteItem = async (e,id) => {
         e.preventDefault()
 
@@ -73,8 +93,15 @@ function Items() {
             <div className="grid">
                 <form action method="get" className="search">
                     <div className="form__field">
-                        <input type="search" name="search" placeholder="What are you looking for?" className="form__input" />
-                        <input type="submit" defaultValue="Search" className="button" />
+                        <input type="search" 
+                        name="search" 
+                        value={search_input} 
+                        placeholder="Write Item Name" 
+                        className="form__input" 
+                        onChange={(text)=>{
+                            set_search_input(text.target.value);
+                }} />
+                        {/* <input type="submit" defaultValue="Search" className="button" /> */}
                     </div>
                 </form>
             </div>
@@ -127,7 +154,7 @@ but hey, it's pure CSS magic.
                 </thead>
 
                 <tbody>
-                    {data.map((item, i) => {
+                    {filtered_data.map((item, i) => {
                         return (
                             <tr key={i}>
                                 <td>{i + 1}</td>
