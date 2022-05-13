@@ -17,17 +17,19 @@ function Items() {
 
     useEffect(async () => {
         set_laoding(true)
+        console.log("init",init)
         if(!init){
-
             const PORT = 4000
             const url = `http://localhost:${PORT}`
-    
-    
             await axios.post(`${url}/user/getItems`, {
                 gstNo: companyGST,
             }).then((response) => {
+                console.log(response.data)
                 set_data(response.data)
-                console.log(data)
+                console.log(data,filtered_data)
+                set_filtered_data(response.data)
+                console.log(data,filtered_data)
+
                 set_init(true)
                 set_laoding(false)
             }).catch(() => {
@@ -37,14 +39,16 @@ function Items() {
                 alert("something went wrong")
             })
         }
+        else{
 
+            console.log(data)
+            console.log(search_input)
+            set_filtered_data(data?.filter((d)=>d.itemName.toLowerCase().includes(search_input.toLowerCase())))
+            console.log(filtered_data)
+            // set_data(filteredData)
+            set_laoding(false)
+        }
     
-        console.log(data)
-        console.log(search_input)
-        set_filtered_data(data?.filter((d)=>d.itemName.toLowerCase().includes(search_input.toLowerCase())))
-        console.log(filtered_data)
-        // set_data(filteredData)
-        set_laoding(false)
 
 
     }, [search_input])
@@ -129,6 +133,7 @@ Too bad the menu has to be inside of the button
 but hey, it's pure CSS magic.
 */}
                     <ul id="menu">
+                        <a><li><Link to="/"> Home </Link></li></a>
                         <a><li><Link to="/user/addItem"> Add Item</Link></li></a>
 
                         {/* <a href="#"><li>Rename Item</li></a> */}
