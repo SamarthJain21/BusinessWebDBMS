@@ -6,6 +6,10 @@ import './Login1.js'
 const Login=()=>{
     const [gstNo, set_gstNo] = useState("");
     const [password, set_password] = useState("");
+    const [gstNo1, set_gstNo1] = useState("");
+    const [password1, set_password1] = useState("");
+    const [name1, set_name1] = useState("");
+
     
     const PORT = 4000  
     const url=`http://localhost:${PORT}`
@@ -14,12 +18,11 @@ const Login=()=>{
     const handleLogin=async(e)=>{
       e.preventDefault()
       console.log(`${url}/user/login`)
-      console.log(gstNo, password)
         await Axios.post(`${url}/user/login`,{
           gstNo:gstNo,
           password:password
         }).then((response)=>{
-          console.log(response);
+          // console.log(response);
             if(response.data==="Login"){
               localStorage.setItem('userGST',gstNo)
               localStorage.setItem('userPassword',password)
@@ -31,6 +34,28 @@ const Login=()=>{
 
     }
 
+
+    const handleRegister=async(e)=>{
+      e.preventDefault()
+      console.log(`${url}/user/register`)
+      // [req.body.name,req.body.gstNo,hashedPassword],
+      // console.log(gstNo, password)
+        await Axios.post(`${url}/user/register`,{
+          name:name1,
+          gstNo:gstNo1,
+          password:password1
+        }).then((response)=>{
+          console.log(response);
+            if(response.data==="User Created"){
+              localStorage.setItem('userGST',gstNo1)
+              localStorage.setItem('userPassword',password1)
+              window.location.reload();
+            }else{
+              alert("Invalid Credentials")
+            }
+        })
+
+    }
 
     return (
       <div>
@@ -62,24 +87,24 @@ const Login=()=>{
         <div className="register-page">
           {/* Registration */}
           <div className="info">
-            <form>
-              <div>
-                <input type="text" name="Username" placeholder="Username" />
+          <form>
+          <div>
+                <input type="text" name="username" value={name1} placeholder="Username" onChange={(text)=>{
+                  set_name1(text.target.value);
+                }} />
               </div>
               <div>
-                <input type="tel" id="phone" name="Contact number" pattern="[+]{1}[0-9]{11,14}" placeholder="Contact Number" />
+                <input type="text" name="username" value={gstNo1} placeholder="Username" onChange={(text)=>{
+                  set_gstNo1(text.target.value);
+                }} />
               </div>
               <div>
-                <input type="email" name="E-mail id" placeholder="Email" />
+                <input type="password" name="password" value={password1} placeholder="Password" onChange={(text)=>{
+                  set_password1(text.target.value);
+                }}  />
               </div>
               <div>
-                <input type="text" name="GST number" placeholder="Enter GST number" />
-              </div>
-              <div>
-                <input type="password" name="Password" placeholder="Password" />
-              </div>
-              <div>
-                <input type="submit" defaultValue="Submit" />
+                <input type="submit" defaultValue="Submit" onClick={handleRegister} />
               </div>
             </form>
           </div>
@@ -93,7 +118,7 @@ const Login=()=>{
           <div className="intro">
             Welcome to Trade Management
           </div>
-          <div className="button">
+          <div className="button2">
             <div id="login" className="btn">
               Login
             </div>

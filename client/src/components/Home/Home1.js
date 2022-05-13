@@ -14,6 +14,7 @@ var main=(function() {
     
     // Drop Down Function
     $('#menuButton').on('change', function(){
+        // console.log("heyy")
         ($('#menuButton').is(':checked')) ? (
             $('.the-bass').addClass('dropped')
         ) : (
@@ -24,6 +25,7 @@ var main=(function() {
 
   
 document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("heyyyy")
     //the event occurred
     main()
   })

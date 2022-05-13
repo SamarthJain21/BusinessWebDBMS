@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
 import './AddItem.css'
+import Login from '../Login/Login'
 
 
 function UserItem() {
@@ -41,6 +42,8 @@ function UserItem() {
       })
 
   }
+  if (!localStorage.getItem("userGST")) return <Login />;
+
 
   return (
   <div>
@@ -64,7 +67,7 @@ function UserItem() {
       
     <input type="submit" value="Add" onClick={handleSubmit}/>
     {/* <input className='back' value="Goto Home" onClick={handleSubmit}/> */}
-    <Link to="/user/items" className='back' Home>Go Back</Link>
+    <Link to="/user/items" className='back'>Go Back</Link>
     </form>
 </div>
 

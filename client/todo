@@ -1,3 +1,6 @@
 encrypt password in localstorage
 add scroll in home page and on table
 update item page
+alert confirmation before delete
+overflow inside table column
+navbar not working after coming back from another page

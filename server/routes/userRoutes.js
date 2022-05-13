@@ -36,8 +36,6 @@ router.post('/register',async (req,res)=>{
 router.post('/login', async(req,res)=>{
     console.log("login request",req.body);
     var userPassword = "none";
-
-    
     
     db.query(
         "Select password from companyUser where gstNo=?",
@@ -206,7 +204,7 @@ router.post('/getItems',(req,res)=>{
     console.log("Fetch Item request "+ req.body.gstNo);
 
     db.query(
-        "Select * from `items` where `companyGST`=? and enabled=1",
+        "Select * from `items` where `companyGST`=? and enabled=1 order by itemName",
         [req.body.gstNo],
         (err,result)=>{
             if(err){

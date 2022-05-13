@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import Login from '../Login/Login';
-import './Home1'
 import './Home.css'
+import './Home1'
 import Navbar from './Navbar';
 export default class Home extends Component {
 
@@ -11,6 +11,7 @@ export default class Home extends Component {
         };
       }
 
+
   render() {
     if (!localStorage.getItem("userGST")) return <Login />;
 
@@ -18,7 +19,9 @@ export default class Home extends Component {
 <div>
   <link rel="stylesheet" type="text/css" href="p.css" />
   <div className="fixed-nav-bar">
-    <div className="logo"><span>Welcome</span> User </div>
+    <div className="logo"><span>Welcome</span> {localStorage.getItem("userGST")} </div>
+    <div>
+
     <input type="checkbox" id="menuButton" />
     <label htmlFor="menuButton" className="menu-button-label">
       <div className="white-bar" />
@@ -27,8 +30,10 @@ export default class Home extends Component {
       <div className="white-bar" />
 
     </label>
-  </div>
   <Navbar/>
+  </div>
+
+  </div>
   <div className="rela-block deer-section" />
 </div>
 

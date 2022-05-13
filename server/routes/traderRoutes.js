@@ -17,13 +17,13 @@ router.post('/addTrader',(req,res)=>{
     console.log("Add Trader request"+ req.body.companyGST);
 
     db.query(
-        "Insert into `traders`(`companyGST`,`name`,`email`,`phoneNo`,`gstNo`,`address`,`pinCode`) values(?,?,?,?,?,?,?)",
-        [req.body.companyGST,req.body.name,req.body.email,req.body.phoneNo,req.body.gstNo,req.body.address,req.body.pinCode],
+        "Insert into `traders`(`companyGST`,`name`,`email`,`phoneNo`,`gstNo`,`addressStreet`,`addressCity`,`addressState`,`pinCode`) values(?,?,?,?,?,?,?,?,?)",
+        [req.body.companyGST,req.body.name,req.body.email,req.body.phoneNo,req.body.gstNo,req.body.addressStreet,req.body.addressCity,req.body.addressState,req.body.pinCode],
         (err,result)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Trader Created");
+                res.send("Created");
             }
         }
     );
@@ -35,13 +35,14 @@ router.post('/deleteTrader',(req,res)=>{
     console.log("Remove Trader request"+ req.body.companyGST);
 
     db.query(
-        "delete from `traders`where `companyGST`=? and`gstNo`=?",
-        [req.body.companyGST,req.body.gstNo],
+        // "delete from `traders`where `companyGST`=? and`gstNo`=?",
+        "update `traders` set `enabled`=0 where id=?",
+        [req.body.traderID],
         (err,result)=>{
             if(err){
                 res.send(err);
             }else{
-                res.send("Trader Removed if existed");
+                res.send("Done");
             }
         }
     );
@@ -49,11 +50,11 @@ router.post('/deleteTrader',(req,res)=>{
     
 });
 
-router.get('/getTraders',(req,res)=>{
+router.post('/getTraders',(req,res)=>{
     console.log("Get Trader request"+ req.body.companyGST);
 
     db.query(
-        "select * from `traders`where `companyGST`=?",
+        "select * from `traders`where `companyGST`=? and enabled=1",
         [req.body.companyGST],
         (err,result)=>{
             if(err){
