@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 import Home from './components/Home/Home';
 import AddItem from './components/UserItem/AddItem'
 import Items from './components/UserItem/Items';
@@ -35,7 +35,7 @@ function App() {
         <Route exact path="/order/getOrderItemsBuy/:orderID" element={<OrderItemsBuy />} />
         <Route exact path="/order/addOrderItemBuy/:orderID" element={<AddOrderItemBuy />} />
         <Route exact path="/order/PrevOrders" element={<PrevOrders />} />
-
+        <Route path="*" element={<Navigate to ="/" />}/>
       </Routes>
     </BrowserRouter>
   );

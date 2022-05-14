@@ -191,13 +191,13 @@ ul li {
 }
  .deer-section {
     min-height: 800px;
-    background: url(./background.webp);
+    /* background: url(./background.webp); */
+    background: url("https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg") no-repeat center;
+    
     opacity: 0.4;
-    background-size: cover;
+    /* background-size: ; */
     /* background: url("https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg") no-repeat center; */
     /* background-size: 424px 600px; */
     background-color: #1a1a1a;
-    box-shadow: 0 5px 20px 2px rgba(0,0,0,0.7);
-    z-index: 5;
 }
  
