@@ -112,6 +112,8 @@ function AddOrderItem() {
                 </form>
                 <br/>
                 <Link to={`/order/getOrderItems/${orderID}`}> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Go Back"/></Link>
+                <Link to="/order/getOrders"> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Goto Orders"/></Link>
+
 
             </div>
             <br/>

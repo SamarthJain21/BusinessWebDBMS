@@ -133,6 +133,8 @@ function AddOrder() {
                 />
 
         <input type="submit" className="buttonAddOrder" value="Add" onClick={handleSubmit} />
+        <Link to="/order/getOrders" className='back'>Goto Orders</Link>
+
 
 
 

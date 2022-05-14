@@ -115,7 +115,7 @@ router.post('/addOrderItem', (req, res) => {
                 res.send(err);
             } else {
                 db.query("update `orders` set `totalSellingPrice`=`totalSellingPrice`+? , `totalCostPrice`=`totalCostPrice`+? , `status`=0 where id=?",
-                    [req.body.sellPrice, req.body.costPrice, req.body.orderID],
+                    [req.body.sellPrice*req.body.itemQty, req.body.costPrice*req.body.itemQty, req.body.orderID],
                     (err1, result1) => {
                         if (err1) {
                             res.send(err1);
@@ -123,6 +123,45 @@ router.post('/addOrderItem', (req, res) => {
                         } else {
                             db.query("update `items` set `itemQty`=`itemQty`-? where id=?",
                                 [req.body.itemQty, req.body.itemID],
+                                (err2, result1) => {
+                                    if (err2) {
+                                        res.send(err2);
+
+                                    } else {
+                                        console.log("added")
+                                        res.send("Added")
+                                    }
+                                }
+                            )
+                        }
+                    }
+                )
+            }
+        }
+    );
+
+
+});
+
+router.post('/addOrderItemBuy', (req, res) => {
+    console.log("Add item in existing Order request" + req.body.companyGST, req.body.orderID);
+
+    db.query(
+        "insert into `orderItems` (orderID,itemID,itemQty,costPricePerQty,sellPricePerQty) values(?,?,?,?,?)",
+        [req.body.orderID, req.body.itemID, req.body.itemQty, req.body.costPrice, 0],
+        (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                db.query("update `orders` set `totalSellingPrice`=`totalSellingPrice`+? , `totalCostPrice`=`totalCostPrice`+? , `status`=0 where id=?",
+                    [0, req.body.costPrice*req.body.itemQty, req.body.orderID],
+                    (err1, result1) => {
+                        if (err1) {
+                            res.send(err1);
+
+                        } else {
+                            db.query("update `items` set `itemQty`=`itemQty`+? ,`pricePerQty`=? where id=?",
+                                [req.body.itemQty,req.body.costPrice, req.body.itemID],
                                 (err2, result1) => {
                                     if (err2) {
                                         res.send(err2);

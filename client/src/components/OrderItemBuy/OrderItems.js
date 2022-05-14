@@ -76,6 +76,8 @@ function OrderItemsBuy() {
                 </form>
                 <br/>
                 <Link to={`/order/addOrderItemBuy/${orderID}`}> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Add Another Item"/></Link>
+                <Link to="/order/getOrders"> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Goto Orders"/></Link>
+
 
             </div>
             <br/>

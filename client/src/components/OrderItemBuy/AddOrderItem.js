@@ -14,7 +14,8 @@ function AddOrderItemBuy() {
     const [search_input,set_search_input]=useState("")
     const [init,set_init]=useState(false);
     const {orderID}= useParams()
-    const [sellPrice,setSellPrice]=useState("")
+    const [costPrice,setCostPrice]=useState("")
+    const [itemQty1,setItemQty1]=useState("")
 
     useEffect(async () => {
         set_laoding(true)
@@ -53,7 +54,7 @@ function AddOrderItemBuy() {
 
     if (!localStorage.getItem("userGST")) return <Login />;
 
-    const handleAddItem = async (e,itemID,itemQty,costPrice) => {
+    const handleAddItem = async (e,itemID,costPrice) => {
         e.preventDefault()
 
         const PORT = 4000
@@ -62,14 +63,13 @@ function AddOrderItemBuy() {
         // [req.body.orderID,req.body.itemID,req.body.itemQty,req.body.costPrice,req.body.sellPrice],
 
 
-        console.log(`${url}/order/addOrderItem`)
-          await axios.post(`${url}/order/addOrderItem`,{
+        console.log(`${url}/order/addOrderItemBuy`)
+          await axios.post(`${url}/order/addOrderItemBuy`,{
             companyGST:companyGST,
             itemID:itemID,
             orderID:orderID,
-            itemQty:itemQty,
+            itemQty:itemQty1,
             costPrice:costPrice,
-            sellPrice:sellPrice
 
           }).then((response)=>{
             console.log(response);
@@ -112,6 +112,8 @@ function AddOrderItemBuy() {
                 </form>
                 <br/>
                 <Link to={`/order/getOrderItemsBuy/${orderID}`}> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Go Back"/></Link>
+                <Link to="/order/getOrders"> <input type="button" className="button1" style={{borderRadius:8,position:'relative'}}value="Goto Orders"/></Link>
+
 
             </div>
             <br/>
@@ -120,8 +122,11 @@ function AddOrderItemBuy() {
             <div className="frame" />
 
             <table className="container">
-            <input type="number" value={sellPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Selling Price of item" onChange={(text)=>{
-                  setSellPrice(text.target.value);
+            <input type="number" value={costPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Cost Price of item" onChange={(text)=>{
+                  setCostPrice(text.target.value);
+                }} />
+            <input type="number" value={itemQty1}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity" onChange={(text)=>{
+                  setItemQty1(text.target.value);
                 }} />
                 <thead>
                     <tr>
@@ -129,7 +134,7 @@ function AddOrderItemBuy() {
                         {/* <th><h1>ID</h1></th> */}
                         <th><h1>Name</h1></th>
                         <th><h1>Quantity</h1></th>
-                        <th><h1>Price</h1></th>
+                        <th><h1>Previous Price</h1></th>
                         <th><h1>Description</h1></th>
                         {/* <th><h1>Buy / Sell</h1></th> */}
                         <th><h1>Add </h1></th>
@@ -147,7 +152,7 @@ function AddOrderItemBuy() {
                                 <td>&#8377;{item.pricePerQty} </td>
                                 <td>{item.description}</td>
                                 <td><div className="table__button-group">
-                                    <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.itemID,item.itemQty,item.pricePerQty)}/>
+                                    <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.itemID,item.pricePerQty)}/>
                                 </div>
                                 </td>
                             </tr>)
