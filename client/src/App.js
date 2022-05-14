@@ -13,6 +13,7 @@ import AddOrderItem from './components/OrderItemSell/AddOrderItem';
 import OrderItems from './components/OrderItemSell/OrderItems';
 import OrderItemsBuy from './components/OrderItemBuy/OrderItems';
 import AddOrderItemBuy from './components/OrderItemBuy/AddOrderItem';
+import PrevOrders from './components/Orders/PrevOrders';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/order/addOrderItem/:orderID" element={<AddOrderItem />} />
         <Route exact path="/order/getOrderItemsBuy/:orderID" element={<OrderItemsBuy />} />
         <Route exact path="/order/addOrderItemBuy/:orderID" element={<AddOrderItemBuy />} />
+        <Route exact path="/order/PrevOrders" element={<PrevOrders />} />
 
       </Routes>
     </BrowserRouter>

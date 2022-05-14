@@ -40,7 +40,6 @@ router.post('/getPendingOrders', (req, res) => {
     );
 });
 
-
 router.post('/getOngoingOrders', (req, res) => {
     console.log("Get Incomplete Orders request" + req.body.companyGST);
 
@@ -56,11 +55,12 @@ router.post('/getOngoingOrders', (req, res) => {
         }
     );
 });
-router.post('/getPreviousOrders', (req, res) => {
-    console.log("Get Ongoing Orders request" + req.body.companyGST);
+
+router.post('/PastSales', (req, res) => {
+    console.log("Get Incomplete Orders request" + req.body.companyGST);
 
     db.query(
-        "select * from `orders`where `companyGST`=? and status=3 order by date",
+        "select *,`orders`.`id` as orderID from `orders`,`traders` where `orders`.`companyGST`=? and `orders`.status =3 and `orders`.`traderID`=`traders`.`id` order by date",
         [req.body.companyGST],
         (err, result) => {
             if (err) {
@@ -174,5 +174,22 @@ router.post('/getOtherOrderItems', (req, res) => {
         }
     );
 });
+
+router.post('/completeOrder', (req, res) => {
+    console.log("Create Order request" + req.body.companyGST, req.body.orderID);
+
+    db.query(
+        "update `orders` set status=3 where id=?",
+        [req.body.orderID],
+        (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send('Done');
+            }
+        }
+    );
+});
+
 
 export default router;

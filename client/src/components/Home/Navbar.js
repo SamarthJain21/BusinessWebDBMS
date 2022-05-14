@@ -85,6 +85,15 @@ function Navbar() {
         </Link>
       </div>
       <div className="rela-block drop-down-container">
+        <Link to="/order/PrevOrders">
+          <div className="drop-down-item">
+            <ul>
+              <li> Past Sales</li>
+            </ul>
+          </div>
+        </Link>
+      </div>
+      <div className="rela-block drop-down-container">
         <Link to="/order/addOrder">
           <div className="drop-down-item">
             <ul>

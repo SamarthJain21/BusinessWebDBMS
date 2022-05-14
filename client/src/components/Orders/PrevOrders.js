@@ -4,7 +4,7 @@ import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
-function Orders() {
+function PrevOrders() {
 
     const companyGST = localStorage.getItem("userGST")
     const [loading, set_laoding] = useState(true)
@@ -18,7 +18,7 @@ function Orders() {
         if(!init){
             const PORT = 4000
             const url = `http://localhost:${PORT}`
-            await axios.post(`${url}/order/getOngoingOrders`, {
+            await axios.post(`${url}/order/PastSales`, {
                 companyGST: companyGST,
             }).then((response) => {
                 console.log(response)
@@ -47,33 +47,6 @@ function Orders() {
 
     }, [search_input])
 
-    const handleCompleteOrder = async (e,orderID) => {
-        e.preventDefault()
-
-        const PORT = 4000
-        const url = `http://localhost:${PORT}`
-
-
-        console.log(`${url}/order/completeOrder`)
-          await axios.post(`${url}/order/completeOrder`,{
-            companyGST:companyGST,
-            orderID:orderID
-          }).then((response)=>{
-            console.log(response);
-              if(response.data==="Done"){
-                  alert("Completed")
-                window.location.reload()
-              }else{
-                alert(response.data.sqlMessage)
-
-                  console.log(response)
-                // alert(response)
-                // window.location.reload()
-
-              }
-          })
-
-    }
     const renderContent = (
         <div className='tradersPage'>
             <div>
@@ -83,7 +56,7 @@ function Orders() {
             <br/>
             </div>
             <h1>
-                <span className="yellow">Current Orders</span></h1>
+                <span className="yellow">Previous Orders</span></h1>
             <div className="grid">
                 <form action method="get" className="search">
                     <div className="form__field">
@@ -114,8 +87,8 @@ function Orders() {
                         <th><h1>Total Cost Price</h1></th>
                         <th><h1>Total Selling Price</h1></th>
                         <th><h1>Buy / Sell</h1></th>
-                        <th><h1>Add Items</h1></th>
-                        <th><h1>Completed</h1></th>
+                        {/* <th><h1>Add Items</h1></th> */}
+                        {/* <th><h1>Completed</h1></th> */}
                         {/* <th><h1> </h1></th> */}
                     </tr>
                 </thead>
@@ -134,14 +107,14 @@ function Orders() {
                                 <td>&#8377;{trader.totalCostPrice}</td>
                                 <td>&#8377;{trader.totalSellingPrice}</td>
                                 <td>{trader.buy_sell==1?"buy":"sell"}</td>
-                                <td><div className="table__button-group">
+                                {/* <td><div className="table__button-group">
                                     <Link to ={trader.buy_sell==1?`/order/getOrderItemsBuy/${trader.orderID}`:`/order/getOrderItems/${trader.orderID}`}><input type="button" className="button" value="Items"/></Link>
                                 </div>
                                 </td>
                                 <td><div className="table__button-group">
                                 <input type="button" className="button"value="Add" onClick={e=>handleCompleteOrder(e,trader.orderID)}/>
                                 </div>
-                                </td>
+                                </td> */}
                             </tr>)
                     })}
 
@@ -159,4 +132,4 @@ function Orders() {
     )
 }
 
-export default Orders
+export default PrevOrders
