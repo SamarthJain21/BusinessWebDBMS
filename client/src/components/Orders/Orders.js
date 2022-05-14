@@ -142,7 +142,7 @@ function Orders() {
                                 </div>
                                 </td>
                                 <td><div className="table__button-group">
-                                <input type="button" className="button"value="Add" onClick={e=>handleCompleteOrder(e,trader.orderID)}/>
+                                <input type="button" className="button"value="Complete" onClick={e=>handleCompleteOrder(e,trader.orderID)}/>
                                 </div>
                                 </td>
                             </tr>)

@@ -136,4 +136,25 @@ router.post('/deleteItem',(req,res)=>{
 
 });
 
+router.post('/updateRelationScore',(req,res)=>{
+    console.log("Request to update Relation score of a trader ",req.body.companyGST,req.body.traderID);
+    
+    // selling price-cost price modulus 1000 i.e 1000 rs profit = 1 point (selling)
+    // cost price modulus 500 i.e 500 rs spent to buy something = 1 point (buying)
+
+    db.query(
+        "update traders set `relationScore`=(select ifnull(round(sum(totalCostPrice)/1000,0),0) as relationScore from orders where buy_sell=2 and traderID=?)+(select ifnull(round(sum(totalSellingPrice-totalCostPrice)/500,0),0) as relationScore1 from orders where buy_sell=1 and traderID=?) where id=?",
+        [req.body.traderID,req.body.traderID,req.body.traderID],
+        (err,result)=>{
+            if(err){
+                console.log(err.sqlMessage)
+                res.send(err);
+            }else{
+                res.send("Updated");
+            }
+        }
+    );
+
+});
+
 export default router;

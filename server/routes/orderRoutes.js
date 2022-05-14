@@ -44,7 +44,7 @@ router.post('/getOngoingOrders', (req, res) => {
     console.log("Get Incomplete Orders request" + req.body.companyGST);
 
     db.query(
-        "select *,`orders`.`id` as orderID from `orders`,`traders` where `orders`.`companyGST`=? and `orders`.status not in(3,2) and `orders`.`traderID`=`traders`.`id` order by date",
+        "select *,`orders`.`id` as orderID from `orders`,`traders` where `orders`.`companyGST`=? and `orders`.status not in(3,2) and `orders`.`traderID`=`traders`.`id` order by date desc",
         [req.body.companyGST],
         (err, result) => {
             if (err) {

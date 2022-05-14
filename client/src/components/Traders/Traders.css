@@ -302,7 +302,7 @@ body
   text-decoration: none;
   color: #232323;
   
-  transition: color 0.3s ease;
+  transition: color 0.15s ease;
 }
 
 #menuToggle a:hover
@@ -346,9 +346,9 @@ body
   
   transform-origin: 4px 0px;
   
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+  transition: transform 0.25s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.25s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.27s ease;
 }
 
 #menuToggle span:first-child
@@ -409,7 +409,7 @@ body
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.25s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
 #menu li
@@ -428,7 +428,7 @@ body
 
 .table__button-group
   {visibility: hidden;
-  transition: visibility .06s ease-in;
+  transition: visibility .03s ease-in;
   /* display: flex; */
   }
   a,input {
@@ -459,3 +459,29 @@ tr:hover > td .table__button-group
 .container td:nth-child(4),
 .container th:nth-child(4) { display: none; }
 } 
+
+table {width: 100%;}
+
+td
+{
+  /* text-align: center; */
+  word-wrap: break-word;
+ overflow: hidden;
+ text-overflow: ellipsis;
+
+}
+
+td.column_a {width: 30%;}
+td.column_b {width: 70%;}
+
+th
+{
+  /* text-align: center; */
+  word-wrap: break-word;
+ overflow: hidden;
+ text-overflow: ellipsis;
+
+}
+
+th.column_a {width: 30%;}
+th.column_b {width: 70%;}

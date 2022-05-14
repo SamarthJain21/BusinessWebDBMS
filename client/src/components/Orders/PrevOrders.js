@@ -87,6 +87,7 @@ function PrevOrders() {
                         <th><h1>Total Cost Price</h1></th>
                         <th><h1>Total Selling Price</h1></th>
                         <th><h1>Buy / Sell</h1></th>
+                        <th><h1>Profit/Loss</h1></th>
                         {/* <th><h1>Add Items</h1></th> */}
                         {/* <th><h1>Completed</h1></th> */}
                         {/* <th><h1> </h1></th> */}
@@ -107,6 +108,7 @@ function PrevOrders() {
                                 <td>&#8377;{trader.totalCostPrice}</td>
                                 <td>&#8377;{trader.totalSellingPrice}</td>
                                 <td>{trader.buy_sell==1?"buy":"sell"}</td>
+                                <td>&#8377;{trader.totalSellingPrice-trader.totalCostPrice}</td>
                                 {/* <td><div className="table__button-group">
                                     <Link to ={trader.buy_sell==1?`/order/getOrderItemsBuy/${trader.orderID}`:`/order/getOrderItems/${trader.orderID}`}><input type="button" className="button" value="Items"/></Link>
                                 </div>

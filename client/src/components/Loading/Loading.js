@@ -1,8 +1,11 @@
 import React from 'react'
+import Loader from "react-js-loader";
 
 function Loading() {
   return (
-    <div>Loading</div>
+    <div className={"item"}>
+    <Loader type="bubble-spin" bgColor={"#FFFFFF"} title={"bubble-spin"} color={'#FFFFFF'} size={100} />
+</div>
   )
 }
 

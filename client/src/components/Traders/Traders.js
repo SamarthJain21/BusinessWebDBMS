@@ -22,7 +22,7 @@ function Traders() {
             await axios.post(`${url}/trader/getTraders`, {
                 companyGST: companyGST,
             }).then((response) => {
-                // console.log(response)
+                console.log(response)
                 if(response.data!="No Items Found"){
                     set_data(response.data)
                     set_filtered_data(response.data)
@@ -96,7 +96,7 @@ function Traders() {
                         onChange={(text)=>{
                             set_search_input(text.target.value);
                 }} />
-                        {/* <input type="submit" defaultValue="Search" className="button" /> */}
+                        {/* <input type="submit" value="Update" defaultValue="Update Relation Score" className="button" /> */}
                     </div>
                 </form>
             </div>
@@ -113,6 +113,7 @@ function Traders() {
                         <th><h1>Gst No</h1></th>
                         <th><h1>Phone No.</h1></th>
                         <th><h1>Address</h1></th>
+                        <th><h1>Score</h1></th>
                         <th><h1>Items</h1></th>
                         {/* <th><h1>Buy / Sell</h1></th> */}
                         <th><h1>Delete </h1></th>
@@ -131,6 +132,8 @@ function Traders() {
                                 <td>{trader.gstNo}</td>
                                 <td>{trader.phoneNo} </td>
                                 <td>{trader.addressStreet},{trader.addressCity}</td>
+                                <td>{trader.relationScore} </td>
+
                                 <td><div className="table__button-group">
                                    <Link to={`/trader/getTraderItems/${trader.id}`} > <input type="button" className="button" value="Items"/></Link>
                                 </div>
