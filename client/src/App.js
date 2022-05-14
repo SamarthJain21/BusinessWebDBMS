@@ -9,6 +9,10 @@ import AddTraderItem from './components/TraderItems/AddTraderItem';
 import TraderItems from './components/TraderItems/TraderItems';
 import Orders from './components/Orders/Orders';
 import AddOrder from './components/Orders/AddOrder';
+import AddOrderItem from './components/OrderItemSell/AddOrderItem';
+import OrderItems from './components/OrderItemSell/OrderItems';
+import OrderItemsBuy from './components/OrderItemBuy/OrderItems';
+import AddOrderItemBuy from './components/OrderItemBuy/AddOrderItem';
 
 
 function App() {
@@ -24,6 +28,12 @@ function App() {
         <Route exact path="/trader/addTraderItem/:id" element={<AddTraderItem />} />
         <Route exact path="/order/getOrders" element={<Orders />} />
         <Route exact path="/order/addOrder" element={<AddOrder />} />
+        <Route exact path="/order/order" element={<AddOrder />} />
+        <Route exact path="/order/getOrderItems/:orderID" element={<OrderItems />} />
+        <Route exact path="/order/addOrderItem/:orderID" element={<AddOrderItem />} />
+        <Route exact path="/order/getOrderItemsBuy/:orderID" element={<OrderItemsBuy />} />
+        <Route exact path="/order/addOrderItemBuy/:orderID" element={<AddOrderItemBuy />} />
+
       </Routes>
     </BrowserRouter>
   );

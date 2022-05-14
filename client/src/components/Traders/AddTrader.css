@@ -7,8 +7,9 @@ body {
 
 .box {
   margin: auto;
+  margin-top: 10vh;
   position: relative;
-  width: 400px;
+  width: 50vw;
   padding: 80px;
   transform: translate(10%,-8%);
   background: #262627;;
