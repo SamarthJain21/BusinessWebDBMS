@@ -21,7 +21,7 @@ router.post('/addTrader',(req,res)=>{
         [req.body.companyGST,req.body.name,req.body.email,req.body.phoneNo,req.body.gstNo,req.body.addressStreet,req.body.addressCity,req.body.addressState,req.body.pinCode],
         (err,result)=>{
             if(err){
-                res.send(err);
+                res.send("error");
             }else{
                 res.send("Created");
             }
@@ -143,7 +143,7 @@ router.post('/updateRelationScore',(req,res)=>{
     // cost price modulus 500 i.e 500 rs spent to buy something = 1 point (buying)
 
     db.query(
-        "update traders set `relationScore`=(select ifnull(round(sum(totalCostPrice)/1000,0),0) as relationScore from orders where buy_sell=2 and traderID=?)+(select ifnull(round(sum(totalSellingPrice-totalCostPrice)/500,0),0) as relationScore1 from orders where buy_sell=1 and traderID=?) where id=?",
+        "update `traders` set `relationScore`=(select abs(ifnull(round(sum(totalCostPrice)/1000,0),0)) as relationScore from `orders` where `buy_sell`=2 and `traderID`=?)+(select abs(ifnull(round(sum(totalSellingPrice-totalCostPrice)/500,0),0)) as relationScore1 from `orders` where `buy_sell`=1 and `traderID`=?) where `id`=?",
         [req.body.traderID,req.body.traderID,req.body.traderID],
         (err,result)=>{
             if(err){
@@ -156,5 +156,27 @@ router.post('/updateRelationScore',(req,res)=>{
     );
 
 });
+
+router.post('/getTopTraders',(req,res)=>{
+    console.log("Request to fetch top traders according to relation score",req.body.companyGST);
+    
+    // selling price-cost price modulus 1000 i.e 1000 rs profit = 1 point (selling)
+    // cost price modulus 500 i.e 500 rs spent to buy something = 1 point (buying)
+
+    db.query(
+        "select * from traders where companyGST=? and relationScore > 0 order by relationScore desc limit 3 ",
+        [req.body.companyGST],
+        (err,result)=>{
+            if(err){
+                console.log(err.sqlMessage)
+                res.send("error");
+            }else{
+                res.send(result);
+            }
+        }
+    );
+
+});
+
 
 export default router;

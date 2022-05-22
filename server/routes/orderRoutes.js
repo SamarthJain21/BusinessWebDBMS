@@ -215,7 +215,7 @@ router.post('/getOtherOrderItems', (req, res) => {
 });
 
 router.post('/completeOrder', (req, res) => {
-    console.log("Create Order request" + req.body.companyGST, req.body.orderID);
+    console.log("Create Order request" + req.body.companyGST, req.body.orderID,req.body.traderID);
 
     db.query(
         "update `orders` set status=3 where id=?",
@@ -224,7 +224,41 @@ router.post('/completeOrder', (req, res) => {
             if (err) {
                 res.send(err);
             } else {
-                res.send('Done');
+                    console.log("Request to update Relation score of a trader ",req.body.companyGST,req.body.traderID);
+                    
+                    // selling price-cost price modulus 1000 i.e 1000 rs profit = 1 point (selling)
+                    // cost price modulus 500 i.e 500 rs spent to buy something = 1 point (buying)
+                
+                    db.query(
+                        "update `traders` set `relationScore`=(select abs(ifnull(round(sum(totalCostPrice)/1000,0),0)) as relationScore from `orders` where `buy_sell`=2 and `traderID`=?)+(select abs(ifnull(round(sum(totalSellingPrice-totalCostPrice)/500,0),0)) as relationScore1 from `orders` where `buy_sell`=1 and `traderID`=?) where `id`=?",
+                        [req.body.traderID,req.body.traderID,req.body.traderID],
+                        (err,result)=>{
+                            if(err){
+                                console.log(err.sqlMessage)
+                                res.send(err);
+                            }else{
+                                res.send('Done');
+
+                            }
+                        }
+                    );
+                
+            }
+        }
+    );
+});
+
+router.post('/getOngoingOrderCount', (req, res) => {
+    console.log("Get Incomplete Orders Count request" + req.body.companyGST);
+
+    db.query(
+        "select count(*) as orderCount from `orders` where `orders`.`companyGST`=? and `orders`.status not in(3,2) order by date desc",
+        [req.body.companyGST],
+        (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
             }
         }
     );

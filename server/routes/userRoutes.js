@@ -276,4 +276,27 @@ router.post('/updateItem',(req,res)=>{
 
 });
 
+router.post('/getRestockedItems',(req,res)=>{
+    console.log("Fetch Item with no quantity request "+ req.body.companyGST);
+
+    db.query(
+        "Select count(*) as itemCount from `items` where `companyGST`=? and enabled=1 and `itemQty`=0 order by itemName",
+        [req.body.companyGST],
+        (err,result)=>{
+            if(err){
+                res.send(err);
+            }
+            else{
+                if(result.length!=0){
+
+                    res.send(result)
+                }else{
+                    res.send("No Items Found")
+                }
+            }
+        }
+    )
+
+})
+
 export default router;
