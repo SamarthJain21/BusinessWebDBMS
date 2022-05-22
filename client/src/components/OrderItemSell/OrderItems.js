@@ -111,9 +111,9 @@ function OrderItems() {
                                 <td>{item.itemName}</td>
                                 <td>{item.itemQtyNew} units</td>
                                 <td>{item.description}</td> 
-                                <td>&#8377;{item.pricePerQty} </td>
-                                <td>&#8377;{item.sellPricePerQty} </td>
-                                <td>&#8377;{(item.sellPricePerQty-item.pricePerQty)*item.itemQtyNew} </td>
+                                <td>&#8377; {item.pricePerQty} </td>
+                                <td>&#8377; {item.sellPricePerQty} </td>
+                                <td>&#8377; {(item.sellPricePerQty-item.pricePerQty)*item.itemQtyNew} </td>
                             </tr>)
                     })}
 

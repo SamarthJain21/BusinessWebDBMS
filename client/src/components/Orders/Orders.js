@@ -47,7 +47,7 @@ function Orders() {
 
     }, [search_input])
 
-    const handleCompleteOrder = async (e,orderID) => {
+    const handleCompleteOrder = async (e,orderID,traderID) => {
         e.preventDefault()
 
         const PORT = 4000
@@ -57,10 +57,12 @@ function Orders() {
         console.log(`${url}/order/completeOrder`)
           await axios.post(`${url}/order/completeOrder`,{
             companyGST:companyGST,
-            orderID:orderID
+            orderID:orderID,
+            traderID:traderID
           }).then((response)=>{
             console.log(response);
               if(response.data==="Done"){
+                  
                   alert("Completed")
                 window.location.reload()
               }else{
@@ -135,14 +137,14 @@ function Orders() {
                                 <td>&#8377;{trader.totalCostPrice}</td>
                                 <td>&#8377;{trader.totalSellingPrice}</td>
                                 <td>{trader.buy_sell==1?"buy":"sell"}</td>
-                                <td>&#8377;{(trader.totalSellingPrice-trader.totalCostPrice)} </td>
+                                <td>&#8377; {(trader.totalSellingPrice-trader.totalCostPrice)} </td>
 
                                 <td><div className="table__button-group">
                                     <Link to ={trader.buy_sell==1?`/order/getOrderItemsBuy/${trader.orderID}`:`/order/getOrderItems/${trader.orderID}`}><input type="button" className="button" value="Items"/></Link>
                                 </div>
                                 </td>
                                 <td><div className="table__button-group">
-                                <input type="button" className="button"value="Complete" onClick={e=>handleCompleteOrder(e,trader.orderID)}/>
+                                <input type="button" className="button"value="Complete" onClick={e=>handleCompleteOrder(e,trader.orderID,trader.traderID)}/>
                                 </div>
                                 </td>
                             </tr>)

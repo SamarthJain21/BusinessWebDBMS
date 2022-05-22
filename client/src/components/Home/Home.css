@@ -5,7 +5,7 @@
     transition: 0.15s ease;
 }
  body {
-    background-color: #e5e9e9;
+    /* background-color: #e5e9e9; */
     font-size: 22px;
     line-height: 28px;
     letter-spacing: 4px;
@@ -190,14 +190,115 @@ ul li {
     right: 0;
 }
  .deer-section {
+     position: absoloute;
     min-height: 800px;
-    /* background: url(./background.webp); */
-    background: url("https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg") no-repeat center;
-    
-    opacity: 0.4;
-    /* background-size: ; */
+    background: url(./background3.webp);
     /* background: url("https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg") no-repeat center; */
-    /* background-size: 424px 600px; */
-    background-color: #1a1a1a;
+    background-size: cover;
+    opacity: 0.8;
+    /* background-size: ; */
+    /* background: url('./background1.webp'); */
+    /* background-blend-mode: lighten; */
+    /* background: url("https://40.media.tumblr.com/c51b58b12eea0fdb6ef1322c8c6089fb/tumblr_mo4hnpJ1D51r20af2o1_500.jpg") no-repeat center; */
+    /* background-color: #555555; */
+    z-index: 1;
+}
+.card-cover{
+    align-self: center;
+    align-items: center;
+    display:flex;
+    margin-top: 12vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+
 }
  
+.traderNames{
+    margin-top: 20px;
+}
+.traderName{
+    font-size: 1.5em;
+    color:#e78533;
+    font-weight: bold;
+    line-height: normal;
+
+
+}
+
+
+.card {
+    position: relative;
+    background:rgb(30, 29, 29);
+    width: var(--card-width);
+    height: var(--card-height);
+    padding: 3px;
+    margin: 2vw;
+    position: relative;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: normal;
+    color: rgb(255, 102, 0,1);
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    cursor: pointer;
+    /* font-family: "Century Gothic"; */
+    z-index: 2;
+  }
+  
+  .card:hover {
+    color: rgb(255, 102, 0,1);
+    transition: color 0.5s;
+  }
+
+  /* .card:hover:before, .card:hover:after {
+    animation: none;
+    opacity: 1;
+  } */
+  
+
+  
+  /* .card::before {
+    content: "Current Ongoing Orders: ";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #3c67e3 30%, #4e00c2);
+      position: absolute;
+      z-index: -1;
+      top: -1%;
+      left: -2%;
+      animation: spin 1.5s linear infinite;
+  } */
+  
+  /* .card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    
+      opacity: 0.5;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+  } */
+
+  :root {
+    --card-height: 30vh;
+    --card-width: calc(var(--card-height) );
+  }
+  
