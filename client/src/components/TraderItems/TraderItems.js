@@ -6,7 +6,6 @@ import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
 // import './TraderItems.css'
 function TraderItems() {
-
     const companyGST = localStorage.getItem("userGST")
     const [loading, set_laoding] = useState(false)
     const [data, set_data] = useState([])

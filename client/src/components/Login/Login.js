@@ -10,6 +10,8 @@ const Login=()=>{
     const [password1, set_password1] = useState("");
     const [name1, set_name1] = useState("");
 
+    console.log("heyyy")
+
     
     const PORT = 4000  
     const url=`http://localhost:${PORT}`

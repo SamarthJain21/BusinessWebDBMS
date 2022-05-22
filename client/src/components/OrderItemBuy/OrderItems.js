@@ -4,6 +4,7 @@ import Loading from '../Loading/Loading';
 import { Link,useParams } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
+import millify from 'millify';
 // import './OrderItemsBuy.css'
 function OrderItemsBuy() {
 
@@ -111,9 +112,9 @@ function OrderItemsBuy() {
                                 <td>{item.itemName}</td>
                                 <td>{item.itemQtyNew} units</td>
                                 <td>{item.description}</td> 
-                                <td>&#8377; {item.pricePerQty} </td>
-                                <td>&#8377; {item.sellPricePerQty} </td>
-                                <td>&#8377; {(item.sellPricePerQty-item.pricePerQty)*item.itemQtyNew} </td>
+                                <td>&#8377; {millify(item.pricePerQty)} </td>
+                                <td>&#8377; {millify(item.sellPricePerQty)} </td>
+                                <td className={(item.sellPricePerQty-item.pricePerQty   )>=0?"profit":"loss"}>&#8377; {millify((item.sellPricePerQty-item.pricePerQty)*item.itemQtyNew)} </td>
                             </tr>)
                     })}
 

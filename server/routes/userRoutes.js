@@ -280,7 +280,7 @@ router.post('/getRestockedItems',(req,res)=>{
     console.log("Fetch Item with no quantity request "+ req.body.companyGST);
 
     db.query(
-        "Select count(*) as itemCount from `items` where `companyGST`=? and enabled=1 and `itemQty`=0 order by itemName",
+        "Select itemName from `items` where `companyGST`=? and enabled=1 and `itemQty`=0 order by itemName limit 3",
         [req.body.companyGST],
         (err,result)=>{
             if(err){

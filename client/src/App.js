@@ -14,13 +14,14 @@ import OrderItems from './components/OrderItemSell/OrderItems';
 import OrderItemsBuy from './components/OrderItemBuy/OrderItems';
 import AddOrderItemBuy from './components/OrderItemBuy/AddOrderItem';
 import PrevOrders from './components/Orders/PrevOrders';
+import Home1 from './components/Home/Home1';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Home1 />} />
         <Route exact path="/user/addItem" element={<AddItem />} />
         <Route exact path="/user/items" element={<Items />} />
         <Route exact path="/trader/getTraders" element={<Traders />} />

@@ -4,6 +4,7 @@ import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
+import millify from 'millify';
 function PrevOrders() {
 
     const companyGST = localStorage.getItem("userGST")
@@ -105,10 +106,13 @@ function PrevOrders() {
                                 <td>{trader.email}</td>
                                 <td>{trader.gstNo}</td>
                                 <td>{trader.phoneNo} </td>
-                                <td>&#8377;{trader.totalCostPrice}</td>
-                                <td>&#8377;{trader.totalSellingPrice}</td>
+                                <td>&#8377; {trader.totalCostPrice}</td>
+                                <td>&#8377; {trader.totalSellingPrice}</td>
                                 <td>{trader.buy_sell==1?"buy":"sell"}</td>
-                                <td>&#8377;{trader.totalSellingPrice-trader.totalCostPrice}</td>
+                                <td className={(trader.totalSellingPrice-trader.totalCostPrice)>=0?"profit":"loss"}>&#8377; {millify(trader.totalSellingPrice-trader.totalCostPrice)}</td>
+                                {/* <td className='profit'>&#8377; {millify(trader.totalSellingPrice-trader.totalCostPrice)}</td> */}
+                                {/* <td className='loss'>&#8377; {millify(trader.totalSellingPrice-trader.totalCostPrice)}</td> */}
+                                
                                 {/* <td><div className="table__button-group">
                                     <Link to ={trader.buy_sell==1?`/order/getOrderItemsBuy/${trader.orderID}`:`/order/getOrderItems/${trader.orderID}`}><input type="button" className="button" value="Items"/></Link>
                                 </div>

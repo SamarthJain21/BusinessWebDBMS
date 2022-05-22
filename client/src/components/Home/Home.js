@@ -10,11 +10,16 @@ function Home() {
 
   const [loading, set_laoding] = useState(true)
   const [orderCount, set_orderCount] = useState("")
-  const [itemCount, set_itemCount] = useState("")
+  const [items, set_items] = useState([])
   const [traders,set_traders]=useState([]);
 
+
+// if (!localStorage.getItem("userGST")) return <Login/>
+
+
   useEffect(async () => {
-    if (!localStorage.getItem("userGST")) return <Login />;
+    {console.log(localStorage.getItem("userGST"))}
+
 
     set_laoding(true)
     const PORT = 4000
@@ -38,9 +43,9 @@ function Home() {
     await axios.post(`${url}/user/getRestockedItems`, {
       companyGST: localStorage.getItem("userGST"),
     }).then((response) => {
-      // console.log(response.data[0].itemCount)
+      console.log(response.data)
       if (response.data !== "No Items Found") {
-        set_itemCount(response.data[0].itemCount)
+        set_items(response.data)
       }
       // set_laoding(false)
     }).catch((e) => {
@@ -53,7 +58,7 @@ function Home() {
     await axios.post(`${url}/trader/getTopTraders`, {
       companyGST: localStorage.getItem("userGST"),
     }).then((response) => {
-      console.log(response)
+      // console.log(response)
       if (response.data !== "error") {
         set_traders(response.data)
       }
@@ -80,9 +85,19 @@ function Home() {
             </div>
           </Link>
 
+
           <Link to="/user/items">
             <div className="card">
-              {itemCount} items are out of stock
+             Out of Stock:
+              <div className='traderNames'>
+              {items.map((item,i)=>{
+                // {console.log(item.itemName)}
+                return(
+                //  <Link to={`/trader/getTraderItems/${item.id}`}><div className='traderName'>{item.itemName}</div></Link>
+               <Link to="/user/items"><div className='traderName'>{item.itemName}</div></Link>
+                )
+              })}
+            </div>
             </div>
           </Link>
 

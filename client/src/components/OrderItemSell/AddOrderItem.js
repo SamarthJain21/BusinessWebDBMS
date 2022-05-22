@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-// import './AddOrderItem.css'
 import Loading from '../Loading/Loading';
 import { Link, useParams } from 'react-router-dom';
 import Login from '../Login/Login';
 import Navbar from '../Home/Navbar';
+import millify from 'millify';
 
 function AddOrderItem() {
     const companyGST = localStorage.getItem("userGST")
@@ -146,7 +146,7 @@ function AddOrderItem() {
                                 {/* <td>{item.id}</td> */}
                                 <td>{item.itemName}</td>
                                 <td>{item.itemQty} units</td>
-                                <td>&#8377;{item.pricePerQty} </td>
+                                <td>&#8377;{millify(item.pricePerQty)} </td>
                                 <td>{item.description}</td>
                                 <td><div className="table__button-group">
                                     <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.itemID,item.itemQty,item.pricePerQty)}/>
