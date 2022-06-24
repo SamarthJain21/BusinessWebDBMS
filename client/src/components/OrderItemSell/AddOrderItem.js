@@ -124,11 +124,11 @@ function AddOrderItem() {
             <div className="frame" />
 
             <table className="container">
-            <input type="number" value={sellPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Selling Price of item" onChange={(text)=>{
+            <input type="number" className="button1" value={sellPrice}style={{borderColor:"#e78533",borderRadius:"12px",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Selling Price of item" onChange={(text)=>{
                   setSellPrice(text.target.value);
             }} />
 
-            <input type="number" value={sellQty}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity to sell" onChange={(text)=>{
+            <input type="number" className="button1" value={sellQty}style={{borderColor:"#e78533",borderRadius:"12px",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity to sell" onChange={(text)=>{
                   setSellQty(text.target.value);
             }} />
                 <thead>

@@ -124,7 +124,7 @@ function AddOrderItemBuy() {
             <div className="frame" />
 
             <table className="container">
-            <input type="number" value={costPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Cost Price of item" onChange={(text)=>{
+            <input type="number" className="button1" value={costPrice} style={{height:"50px","margin":"5px",padding:"15px",borderWidth:"100%", borderRadius:"12px"}} placeholder="Cost Price of item" onChange={(text)=>{
                 console.log(costPrice)
 
                 setCostPrice(text.target.value);
@@ -132,7 +132,7 @@ function AddOrderItemBuy() {
 
                 console.log(costPrice)
                 }} />
-            <input type="number" value={itemQty1}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity" onChange={(text)=>{
+            <input type="number" value={itemQty1} className="button1" style={{borderColor:"#e78533",borderRadius:"12px",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity" onChange={(text)=>{
                   setItemQty1(text.target.value);
                 }} />
                 <thead>
