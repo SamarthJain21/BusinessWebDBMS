@@ -15,13 +15,15 @@ function AddOrderItem() {
     const [init,set_init]=useState(false);
     const {orderID}= useParams()
     const [sellPrice,setSellPrice]=useState("")
+    const [sellQty,setSellQty]=useState("")
+
 
     useEffect(async () => {
         set_laoding(true)
         if(!init){
             const PORT = 4000
             const url = `http://localhost:${PORT}`
-            await axios.post(`${url}/order/getOtherOrderItems`, {
+            await axios.post(`${url}/order/getOtherOrderItemsSell`, {
               companyGST: companyGST,
               orderID:orderID
             }).then((response) => {
@@ -67,7 +69,7 @@ function AddOrderItem() {
             companyGST:companyGST,
             itemID:itemID,
             orderID:orderID,
-            itemQty:itemQty,
+            itemQty:sellQty,
             costPrice:costPrice,
             sellPrice:sellPrice
 
@@ -124,7 +126,11 @@ function AddOrderItem() {
             <table className="container">
             <input type="number" value={sellPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Selling Price of item" onChange={(text)=>{
                   setSellPrice(text.target.value);
-                }} />
+            }} />
+
+            <input type="number" value={sellQty}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity to sell" onChange={(text)=>{
+                  setSellQty(text.target.value);
+            }} />
                 <thead>
                     <tr>
                         <th><h1>SNo.</h1></th>

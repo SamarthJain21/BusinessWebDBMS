@@ -167,15 +167,7 @@ router.post('/addOrderItemBuy', (req, res) => {
                                     if (err2) {
                                         res.send(err2);
 
-                                    } else {
-                            // ((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))/req.body.itemQty+req.body.prevQty
-                            // console.log(((req.body.costPrice*req.body.itemQty)))
-                            // console.log(req.body.itemQty+req.body.prevQty)
-                            // console.log((req.body.prevPrice* req.body.prevQty))
-                            // console.log((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))
-                            
-                            // console.log(((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))/(req.body.itemQty+req.body.prevQty))
-                                        
+                                    } else {              
                                         console.log("added")
                                         res.send("Added")
                                     }
@@ -207,11 +199,27 @@ router.post('/getOrderItems', (req, res) => {
     );
 });
 
+router.post('/getOtherOrderItemsSell', (req, res) => {
+    console.log("Get items request for adding in order" + req.body.companyGST, req.body.orderID);
+
+    db.query(
+        "select *,(`items`.`id`) as itemID from `items`,`orders` where `items`.`companyGST`=? and `orders`.`id`=? and `items`.`id` in(select `itemID` from `traderItems` where `traderID`=`orders`.`traderID`) and `items`.`enabled`=1 and `items`.`itemQty`>0",
+        [req.body.companyGST, req.body.orderID, req.body.orderID],
+        (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 router.post('/getOtherOrderItems', (req, res) => {
     console.log("Get items request for adding in order" + req.body.companyGST, req.body.orderID);
 
     db.query(
-        "select *,(`items`.`id`) as itemID from `items`,`orders` where `items`.`companyGST`=? and `orders`.`id`=? and `items`.`id` in(select `itemID` from `traderItems` where `traderID`=`orders`.`traderID`) and `items`.`enabled`=1 and `items`.`id` not in(select `itemID` from `orderItems` where orderID=?)",
+        "select *,(`items`.`id`) as itemID from `items`,`orders` where `items`.`companyGST`=? and `orders`.`id`=? and `items`.`id` in(select `itemID` from `traderItems` where `traderID`=`orders`.`traderID`) and `items`.`enabled`=1",
         [req.body.companyGST, req.body.orderID, req.body.orderID],
         (err, result) => {
             if (err) {
