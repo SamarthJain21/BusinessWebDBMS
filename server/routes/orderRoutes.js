@@ -144,6 +144,7 @@ router.post('/addOrderItem', (req, res) => {
 });
 
 router.post('/addOrderItemBuy', (req, res) => {
+    console.log(req.body)
     console.log("Add item in existing Order request" + req.body.companyGST, req.body.orderID);
 
     db.query(
@@ -161,12 +162,20 @@ router.post('/addOrderItemBuy', (req, res) => {
 
                         } else {
                             db.query("update `items` set `itemQty`=`itemQty`+? ,`pricePerQty`=? where id=?",
-                                [req.body.itemQty,req.body.costPrice, req.body.itemID],
+                                [req.body.itemQty,(((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))/(req.body.itemQty+req.body.prevQty)), req.body.itemID],
                                 (err2, result1) => {
                                     if (err2) {
                                         res.send(err2);
 
                                     } else {
+                            // ((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))/req.body.itemQty+req.body.prevQty
+                            // console.log(((req.body.costPrice*req.body.itemQty)))
+                            // console.log(req.body.itemQty+req.body.prevQty)
+                            // console.log((req.body.prevPrice* req.body.prevQty))
+                            // console.log((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))
+                            
+                            // console.log(((req.body.costPrice*req.body.itemQty)+(req.body.prevPrice* req.body.prevQty))/(req.body.itemQty+req.body.prevQty))
+                                        
                                         console.log("added")
                                         res.send("Added")
                                     }

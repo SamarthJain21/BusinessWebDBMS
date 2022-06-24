@@ -54,7 +54,7 @@ function AddOrderItemBuy() {
 
     if (!localStorage.getItem("userGST")) return <Login />;
 
-    const handleAddItem = async (e,itemID,costPrice) => {
+    const handleAddItem = async (e,itemID,costPrice,prevPrice,prevQty) => {
         e.preventDefault()
 
         const PORT = 4000
@@ -68,8 +68,10 @@ function AddOrderItemBuy() {
             companyGST:companyGST,
             itemID:itemID,
             orderID:orderID,
-            itemQty:itemQty1,
-            costPrice:costPrice,
+            itemQty:Number(itemQty1),
+            prevQty:Number(prevQty),
+            costPrice:Number(costPrice),
+            prevPrice:Number(prevPrice),
 
           }).then((response)=>{
             console.log(response);
@@ -123,7 +125,12 @@ function AddOrderItemBuy() {
 
             <table className="container">
             <input type="number" value={costPrice}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Cost Price of item" onChange={(text)=>{
-                  setCostPrice(text.target.value);
+                console.log(costPrice)
+
+                setCostPrice(text.target.value);
+                setCostPrice(text.target.value);
+
+                console.log(costPrice)
                 }} />
             <input type="number" value={itemQty1}style={{borderColor:"#e78533",height:"50px","margin":"5px",padding:"15px",borderWidth:"100%"}} placeholder="Item Quantity" onChange={(text)=>{
                   setItemQty1(text.target.value);
@@ -152,7 +159,7 @@ function AddOrderItemBuy() {
                                 <td>&#8377;{item.pricePerQty} </td>
                                 <td>{item.description}</td>
                                 <td><div className="table__button-group">
-                                    <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.itemID,item.pricePerQty)}/>
+                                    <input type="button" className="button"value="Add" onClick={e=>handleAddItem(e,item.itemID,costPrice,item.pricePerQty,item.itemQty)}/>
                                 </div>
                                 </td>
                             </tr>)

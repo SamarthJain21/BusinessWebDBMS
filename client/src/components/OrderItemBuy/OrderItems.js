@@ -94,7 +94,7 @@ function OrderItemsBuy() {
                         <th><h1>Quantity</h1></th>
                         <th><h1>Description</h1></th>
                         <th><h1>Cost Price</h1></th>
-                        <th><h1>Sell Price</h1></th>
+                        {/* <th><h1>Sell Price</h1></th> */}
                         <th><h1>Profit/Loss</h1></th>
 
                         {/* <th><h1>Buy / Sell</h1></th> */}
@@ -112,8 +112,8 @@ function OrderItemsBuy() {
                                 <td>{item.itemName}</td>
                                 <td>{item.itemQtyNew} units</td>
                                 <td>{item.description}</td> 
-                                <td>&#8377; {millify(item.pricePerQty)} </td>
-                                <td>&#8377; {millify(item.sellPricePerQty)} </td>
+                                <td>&#8377; {millify(item.costPricePerQty)} </td>
+                                {/* <td>&#8377; {millify(item.sellPricePerQty)} </td> */}
                                 <td className={(item.sellPricePerQty-item.pricePerQty   )>=0?"profit":"loss"}>&#8377; {millify((item.sellPricePerQty-item.pricePerQty)*item.itemQtyNew)} </td>
                             </tr>)
                     })}
